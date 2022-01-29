@@ -1,12 +1,15 @@
 import express from "express";
+import { loadEnv } from "./util/config";
 
 let app = express();
-let port = 3000;
+let env = loadEnv();
+
+console.log("Env Variables: " + JSON.stringify(env, undefined, 2));
 
 app.get("/", (_, res) => {
   res.send("Hello World!");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(env.PORT, () => {
+  console.log(`Example app listening on port ${env.PORT}`);
 });
