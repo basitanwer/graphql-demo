@@ -25,6 +25,7 @@ export class User {
       };
       user.id = res.id;
       user.name = res.first_name;
+      user.role = Role.ADMIN;
     } finally {
       return user;
     }
