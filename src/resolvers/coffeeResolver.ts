@@ -1,5 +1,5 @@
 import { Coffee } from "../model/movie";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class CoffeeResolver {
@@ -11,5 +11,10 @@ export class CoffeeResolver {
   @Query(() => [Coffee])
   async getListOfCoffee() {
     return await Coffee.getList();
+  }
+
+  @Mutation(() => Boolean)
+  async updateCoffee(@Arg("coffee", () => Coffee) coffee: Coffee) {
+    return await Coffee.updateCoffee(coffee);
   }
 }

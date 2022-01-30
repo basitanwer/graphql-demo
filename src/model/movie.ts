@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 
 /**
  * Coffee information from random-data-api.com
@@ -11,6 +11,7 @@ interface CoffeeAPI {
   variety: string;
 }
 
+@InputType("CoffeeInput")
 @ObjectType()
 export class Coffee {
   @Field()
@@ -63,5 +64,10 @@ export class Coffee {
     } finally {
       return coffees;
     }
+  }
+
+  static async updateCoffee(coffee: Coffee) {
+    console.log(coffee);
+    return true;
   }
 }
