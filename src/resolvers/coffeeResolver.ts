@@ -7,4 +7,9 @@ export class CoffeeResolver {
   async getCoffee(@Arg("id") id: number) {
     return await Coffee.getById(id);
   }
+
+  @Query(() => [Coffee])
+  async getListOfCoffee() {
+    return await Coffee.getList();
+  }
 }

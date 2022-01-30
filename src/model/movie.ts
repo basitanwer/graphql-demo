@@ -5,6 +5,7 @@ import { Field, ObjectType } from "type-graphql";
  * Coffee information from random-data-api.com
  */
 interface CoffeeAPI {
+  id: string;
   blend_name: string;
   origin: string;
   variety: string;
@@ -40,6 +41,27 @@ export class Coffee {
       throw error;
     } finally {
       return coffee;
+    }
+  }
+
+  static async getList() {
+    let coffees: Coffee[] = [];
+    try {
+      let res = await axios.get("https://random-data-api.com/api/coffee/random_coffee?size=10");
+      let json: CoffeeAPI[] = (await res.data) as CoffeeAPI[];
+      json.forEach((item) => {
+        let coffee = new Coffee();
+        coffee.id = parseInt(item.id);
+        coffee.blendName = item.blend_name;
+        coffee.origin = item.origin;
+        coffee.variety = item.variety;
+        coffees.push(coffee);
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      return coffees;
     }
   }
 }
